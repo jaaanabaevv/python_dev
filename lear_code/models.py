@@ -11,7 +11,7 @@ class Mentor(models.Model):
 
 class Course(models.Model):
     title = models.CharField(max_length=255,verbose_name='kurs ati')
-    desc = models.TextField(verbose_name='kurs haqqinda')
+    desc = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2,verbose_name='kurs baxasi')
     mentor = models.ForeignKey(Mentor, on_delete=models.SET_NULL, null=True, related_name='mentor')
     data = models.DateTimeField(verbose_name='kurs neshe ay dawam etedi')
@@ -25,8 +25,8 @@ class Company(models.Model):
     desc = models.TextField(verbose_name='companiys haqqinda')
     courses = models.ManyToManyField(Course, related_name='companies')
     mentors = models.ManyToManyField(Mentor, related_name='companies')
-    logo = models.ImageField(verbose_name='logo:',blank=True,null=True,)
-    pub_date = models.DateField(verbose_name='Company ashilgan waqiti:',)
+    logo = models.ImageField(verbose_name='logo:',blank=True,null=True)
+    pub_date = models.DateField()
 
     def __str__(self):
         return self.title
@@ -37,4 +37,4 @@ class Comments(models.Model):
     text = models.TextField(verbose_name='Komment text:')
     username = models.ForeignKey(User,on_delete=models.CASCADE)
     company_id = models.ForeignKey(Company,on_delete=models.CASCADE)
-    published_date = models.DateTimeField(auto_now_add=True,verbose_name='Qosilgan waqit')
+    published_date = models.DateTimeField(auto_now_add=True)

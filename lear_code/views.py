@@ -8,7 +8,7 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
 def homepage(request):
     company = models.Company.objects.all()
-    return render(request,'home.html',{'company':company})
+    return render(request,'home.html',{'companys':company})
 
 
 def registration(request):
@@ -40,20 +40,19 @@ def log_out(request):
     return redirect('home')
 
 def detail(request,id):
-    companys = get_object_or_404(models.Company,id=id)
-    comments = models.Comments.objects.filter(company=companys)
+    company = get_object_or_404(models.Company,id=id)
+    comments = models.Comments.objects.filter(logo=company)
     if request.method=='POST':
         comment_form = forms.commentForm(request.POST)
         if comment_form.is_valid():
             new_comment = comment_form.save(commit=False)
-            new_comment.Company = companys
+            new_comment.logo = company
             new_comment.username = request.user
             new_comment.save()
-            return redirect('detail',id=companys.id)
+            return redirect('detail',id=company.id)
     else :
             comment_form = forms.commentForm()
-    return render(request,'detail.html',{'companys':companys,'comments':comments,'comment_form':comment_form})
-
+    return render(request,'detail.html',{'company':company,'comments':comments,'comment_form':comment_form})
 
 @login_required
 

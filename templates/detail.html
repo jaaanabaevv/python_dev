@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">  
+</head>
+<body background="#9DB2BF">
+{% block content %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">  
+
+
+<style>
+    .logo {
+        max-width: 250px; /* Логотипнинг максимал ўлчами */
+        margin-bottom: 30px; /* Логотип билан матн орасидаги масофа */
+    }
+    .company-details p {
+        font-size: 18px;
+        font-weight: bold;
+    }
+</style>
+
+
+<div class="container mt-5 text-center">
+    {% for academy in companys %}
+    <div class="card">
+        <div class="card-body">
+            <h2>{{ academy.title }}</h2>
+            <img src="{{ academy.logo.url }}" alt="{{ academy.title }}" class="img-fluid logo mb-3">
+            <p style="font-size: 150%;">Яратилган вақти: {{ academy.pub_date|date:"d M Y" }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% for comment in comments %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">comment username</th>
+          <th scope="col">text</th>
+          <th scope="col">pub_date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>{{ comment.username }}</td>
+          <td>{{ comment.text }}</td>
+          <td>{{ comment.published_date }}</td>
+      </tbody>
+    </table>
+    {% endfor %}
+
+<div style="
+display: grid; 
+place-items: center; /* Центрирование и по горизонтали, и по вертикали */
+height: 100vh; /* Высота в 100% от высоты экрана */
+margin: 0; /* Убираем отступы по умолчанию */
+background-color: gray; /* Фон для лучшего восприятия */">
+  <form action="{% url 'detail' post.id %}" method="POST" class="comment">
+    {% csrf_token %}
+
+    {{ comment_form.as_p }}
+    <input class="btt" type="submit" value="comment_qosiw ">
+</form>
+</div>
+
+
+{% endblock %}
+
+</body>
+</html>

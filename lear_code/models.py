@@ -31,8 +31,6 @@ class Company(models.Model):
     def __str__(self):
         return self.title
 
-
-
 class Comments(models.Model):
     text = models.TextField(verbose_name='Komment text:')
     username = models.ForeignKey(User,on_delete=models.CASCADE)

@@ -1,6 +1,5 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from . import models
-
 from . import forms
 from django.contrib.auth import login,logout
 from django.urls import reverse_lazy
@@ -20,7 +19,7 @@ def registration(request):
             return redirect('home')
     else:
         form  = forms.RegForm()
-    return render(request,'reg.html',{'form':form})
+    return render(request,'signup.html',{'form':form})
 
 
 
@@ -39,14 +38,21 @@ def log_out(request):
     logout(request)
     return redirect('home')
 
+
+
+def course_detail(request, id):
+    course = get_object_or_404(models.Course, id=id)
+    return render(request, 'course_detail.html', {'course': course})
+
+
 def detail(request,id):
     company = get_object_or_404(models.Company,id=id)
-    comments = models.Comments.objects.filter(logo=company)
+    comments = models.Comments.objects.filter(company_id=id)
     if request.method=='POST':
         comment_form = forms.commentForm(request.POST)
         if comment_form.is_valid():
             new_comment = comment_form.save(commit=False)
-            new_comment.logo = company
+            new_comment.company_id = company
             new_comment.username = request.user
             new_comment.save()
             return redirect('detail',id=company.id)

@@ -1,17 +1,18 @@
-from .models import Company,
+from lear_code.models import Company,Course,Mentor
 from rest_framework.serializers import ModelSerializer
 
-class RoomSerializer(ModelSerializer):
+class CompanySerializer(ModelSerializer):
     class Meta:
-        model = Room
+        model = Company
         fields = '__all__'
 
-class CategorySerializer(ModelSerializer):
+class CoursesSerializer(ModelSerializer):
     class Meta:
-        model = Category
+        model = Course
         fields = '__all__'
 
-class HotelSerializer(ModelSerializer):
+class MentorSerializer(ModelSerializer):
     class Meta:
-        model = Hotel
+        model = Mentor
         fields = '__all__'
+

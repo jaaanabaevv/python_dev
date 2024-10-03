@@ -25,7 +25,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'lear_code',
-    'api'
+    'api',
+    'rest_framework'
 ]
 
 

@@ -5,5 +5,6 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('lear_code.urls'))
-]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('',include('lear_code.urls')),
+    path('api/', include('api.urls'))
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

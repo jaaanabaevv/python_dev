@@ -1,82 +1,101 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ product.name }}{% endblock %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  
 </head>
-<body background="#9DB2BF">
-{% block content %}
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">  
+<body>
+  {% block content %}
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  
 
+
+
+  <section class="text-gray-400 bg-gray-900 body-font overflow-hidden" style="background-color: black; padding: 40px 0;">
+    <div class="container px-5 py-24 mx-auto">
+      <div class="lg:w-4/5 mx-auto flex flex-wrap">
+        <!-- Company Logo -->
+        <img 
+          alt="{{ company.title }} Logo" 
+          class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" 
+          src="{{ company.logo.url }}" 
+          style="border-radius: 50%; width: 420px;">
+  
+        <!-- Company Details Section -->
+        <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0" style="color: #ddd;">
+          <!-- Company Title -->
+          <h1 class="text-white text-4xl title-font font-medium mb-3">{{ company.title }}</h1>
+  
+          <!-- Company Published Date -->
+          <p class="leading-relaxed text-sm mb-4" style="color: #aaa;">
+            Яратилган вақти: {{ company.pub_date|date:"d M Y" }}
+          </p>
+  
+          <!-- Company Description -->
+          <p class="leading-relaxed text-lg mb-5">{{ company.desc }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
+  <div style="display: grid; place-items: center; /* Центрирование и по горизонтали, и по вертикали */height: 30vh; /* Высота в 30% от высоты экрана */margin: 0; /* Убираем отступы по умолчанию */background-color: #040101; /* Фон для лучшего восприятия */ margin-top: 10%;" >
+    <form action="{% url 'detail' company.id %}" method="POST" style="background: #000000; /* Более светлый фон для формы */padding: 20px; /* Отступы внутри формы */border-radius: 8px; /* Закругленные углы формы */box-shadow: 0 4px 6px rgb(252, 243, 243); /* Тень для формы */width: 100%;max-width: 800px; /* Увеличенная максимальная ширина формы */display: flex; /* Используем флексбокс для выравнивания элементов */align-items: flex-start; /* Выравнивание элементов по верху */gap: 10px; /* Расстояние между полем ввода и кнопкой */">
+        <div style="flex-grow: 1;">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+        </div>
+        <input type="submit" value="Add Review" style="background-color: #000000; /* Цвет фона кнопки */color: rgb(247, 240, 240); /* Цвет текста кнопки */border: none; /* Убираем границу кнопки */padding: 10px 20px; /* Отступы внутри кнопки */border-radius: 5px; /* Закругленные углы кнопки */cursor: pointer; /* Курсор при наведении */font-size: 16px; /* Размер шрифта кнопки */transition: background-color 0.3s ease; /* Плавный переход цвета фона */align-self: flex-start;">
+    </form>
+    </div>
 
 <style>
-    .logo {
-        max-width: 250px; /* Логотипнинг максимал ўлчами */
-        margin-bottom: 30px; /* Логотип билан матн орасидаги масофа */
-    }
-    .company-details p {
-        font-size: 18px;
-        font-weight: bold;
-    }
+    form input[type="text"],form textarea {width: calc(100% - 130px);color: #1111;}
+    form input[type="text"]::placeholder,form textarea::placeholder {color: #111111;}
 </style>
 
 
-<div class="container mt-5 text-center">
-    {% for academy in companys %}
-    <div class="card">
-        <div class="card-body">
-            <h2>{{ academy.title }}</h2>
-            <img src="{{ academy.logo.url }}" alt="{{ academy.title }}" class="img-fluid logo mb-3">
-            <p style="font-size: 150%;">Яратилган вақти: {{ academy.pub_date|date:"d M Y" }}</p>
-        </div>
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; max-width: 1200px; margin: 0 auto;" >
+  {% for comment in comments %}
+    <div style="border: 1px solid #ffff; border-radius: 5px; padding: 8px; background-color: #1111; max-width: 100%; box-sizing: border-box;">
+      <div style="display: flex; align-items: center; margin-bottom: 5px;">
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" style="width: 20px; height: 20px; margin-right: 8px; color: #fafafa;" viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        <strong style="font-size: 1em; color: #fafafa; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{ comment.username }}</strong>
+      </div>
+      <p style="margin: 0; font-size: 0.9em; color: #fafafa; line-height: 1.4; max-height: 3.6em; overflow: hidden; text-overflow: ellipsis;" title="{{ comment.text }}">{{ comment.text }}</p>
+      <small style="display: block; color: #777; font-size: 0.8em; text-align: right;">{{ comment.published_date }}</small>
     </div>
-    {% endfor %}
+  {% empty %}
+    <p style="font-style: italic; color: #888; text-align: center; grid-column: span 2;">There are no reviews yet.</p>
+  {% endfor %}
 </div>
 
 
-{% for comment in comments %}
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">comment username</th>
-          <th scope="col">text</th>
-          <th scope="col">pub_date</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>{{ comment.username }}</td>
-          <td>{{ comment.text }}</td>
-          <td>{{ comment.published_date }}</td>
-      </tbody>
-    </table>
-    {% endfor %}
 
-<div style="
-display: grid; 
-place-items: center; /* Центрирование и по горизонтали, и по вертикали */
-height: 100vh; /* Высота в 100% от высоты экрана */
-margin: 0; /* Убираем отступы по умолчанию */
-background-color: gray; /* Фон для лучшего восприятия */">
-  <form action="{% url 'detail' post.id %}" method="POST" class="comment">
-    {% csrf_token %}
 
-    {{ comment_form.as_p }}
-    <input class="btt" type="submit" value="comment_qosiw ">
-</form>
-</div>
+{% if user.is_authenticated %}
+
+{% else %}
+<p>You need to <a href="{% url 'login' %}">login</a> to add a comment.</p>
+{% endif %}
+
+
+</section>
+
 
 
 {% endblock %}
-
 </body>
 </html>
+

@@ -29,25 +29,20 @@
     }
 </style>
 
-</style>
 
-
-  <div class="container mt-5 text-center">
+<div class="container mt-5 text-center" >
     {% for academy in companys %}
-    <div class="card">
-        <div class="card-body">
-            <h2>{{ academy.title }}</h2>
-            <img src="{{ academy.logo.url }}" alt="{{ academy.title }}" class="img-fluid logo mb-3">
-            <p style="font-size: 150%;">Яратилган вақти: {{ academy.pub_date|date:"d M Y" }}</p>
-        </div>
+    <div class="card" style="margin-top: 10%;" >
+        <a href="{% url 'detail' academy.id %}">
+            <div class="card-body" style="color: black;">
+                <h2>{{ academy.title }}</h2>
+                <img src="{{ academy.logo.url }}" alt="{{ academy.title }}" class="img-fluid logo mb-3" >
+                <p style="font-size: 150%;">Яратилган вақти: {{ academy.pub_date|date:"d M Y" }}</p>
+            </div>
+        </a>
     </div>
     {% endfor %}
-  </div>
-</a>
-
-
-
-
+</div>
 
 
   {% endblock %}
